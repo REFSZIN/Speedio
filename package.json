@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "minimatch": "^3.0.4",
+    "run": "^1.4.0"
+  },
+  "name": "speedio",
+  "description": "Desafio Técnico - Serviço de Encurtamento de URLs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yan Matheus",
+  "license": "ISC"
+}

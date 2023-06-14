@@ -1,0 +1,34 @@
+name: Build and Deploy on AWS
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: self-hosted
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Create backend env file
+        uses: SpicyPizza/create-envfile@v1.3.1
+        with:
+          envkey_PORT: ${{secrets.POSTGRES_PORT}}
+          envkey_POSTGRES_USER: ${{secrets.POSTGRES_USER}}
+          envkey_POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
+          envkey_POSTGRES_DB: ${{secrets.POSTGRES_DB}}
+          envkey_POSTGRES_URL: ${{secrets.POSTGRES_URL}}
+          directory: backend
+          file_name: .env
+          fail_on_empty: true
+      - name: Create frontend env file
+        uses: SpicyPizza/create-envfile@v1.3.1
+        with:
+          envkey_baseURL: ${{secrets.baseURL}}
+          directory: frontend
+          file_name: .env
+          fail_on_empty: true
+      - name: Build 
+        run: docker compose build
+      - name: Run
+        run: docker compose stop && docker compose up -d

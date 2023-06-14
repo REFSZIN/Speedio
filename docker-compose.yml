@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    ports:
+      - 5433:5432
+    env_file:
+      - backend/.env
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+
+  node:
+    container_name: node
+    build: ./backend
+    ports:
+      - 5000:5000
+    depends_on:
+      - postgres
+    env_file:
+      - backend/.env
+
+  vue:
+    container_name: vue
+    build: ./frontend
+    ports:
+      - 8080:8080
+    volumes:
+      - vue-volume:/var/www/html
+    stdin_open: true
+    privileged: true
+    tty: true
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - vue-volume:/var/www/html
+    depends_on:
+      - postgres
+      - node
+      - vue
+    privileged: true
+    stdin_open: true
+    tty: true
+
+volumes:
+  postgres-volume:
+  vue-volume:
