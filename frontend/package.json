@@ -1,0 +1,75 @@
+{
+  "name": "speedio-front",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@mdi/font": "5.9.55",
+    "cep-promise": "^4.4.0",
+    "core-js": "^3.8.3",
+    "jwt-decode": "^3.1.2",
+    "lord-icon-element": "^4.1.1",
+    "lottie-web": "^5.12.2",
+    "roboto-fontface": "*",
+    "vue": "^3.2.13",
+    "vue-axios": "^3.5.2",
+    "vue-router": "^4.0.11",
+    "vue-the-mask": "^0.11.1",
+    "vue3-toastify": "^0.1.8",
+    "vuetify": "^3.0.0-beta.0",
+    "vuex": "^4.1.0",
+    "vuex-persistedstate": "^4.1.0",
+    "webfontloader": "^1.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@mdi/font": "^7.2.96",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "axios": "^0.27.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-vue": "^8.0.3",
+    "less": "^4.1.3",
+    "less-loader": "^11.1.0",
+    "vue-cli-plugin-axios": "~0.0.4",
+    "vue-cli-plugin-vuetify": "~2.5.8",
+    "vue-template-compiler": "^2.6.14",
+    "vuetify": "^3.2.2",
+    "webpack-plugin-vuetify": "^2.0.0-alpha.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "description": "<!-- markdownlint-disable --> ![waving](https://capsule-render.vercel.app/api?type=waving&height=200&text=YAN-REFSZIN%20&fontAlignY=40&color=gradient) <div align=\"center\">      <img height=\"300px\" src=\"https://speedio.com.br/4.1/assets/img/logo-speedio.svg\"> <h1 align=\"center\">    Speedio - Frontend </h1> <hr>   <h3>Built With</h3>   <img src=\"https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D\" height=\"30px\"/>   <img src=\"https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E\" height=\"30px\"/>   <img src=\"https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white\" height=\"30px\"/>   <img src=\"https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white\" height=\"30px\"/>   <img src=\"https://img.shields.io/badge/Git-E34F26?style=for-the-badge&logo=git&logoColor=white\" height=\"30px\"/> </div> <br/>",
+  "main": ".eslintrc.js",
+  "author": "",
+  "license": "ISC"
+}
