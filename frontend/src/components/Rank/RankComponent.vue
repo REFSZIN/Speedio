@@ -2,24 +2,36 @@
   <v-container class="rank" fluid>
     <v-row justify="center">
       <lord-icon
-              src="https://cdn.lordicon.com/ihyatngg.json"
-              trigger="hover"
-              colors="primary:#4be1ec,secondary:#cb5eee"
-              style="width:250px;height:250px">
-          </lord-icon>
+        src="https://cdn.lordicon.com/snnvmbic.json"
+        trigger="hover"
+        colors="outline:#121331,primary:#ffc738,secondary:#ebe6ef"
+        style="width:30%;height:250px">
+      </lord-icon>
+      <lord-icon
+        src="https://cdn.lordicon.com/snnvmbic.json"
+        trigger="hover"
+        colors="outline:#121331,primary:#ffc738,secondary:#ebe6ef"
+        style="width:30%;height:250px">
+      </lord-icon>
+      <lord-icon
+        src="https://cdn.lordicon.com/snnvmbic.json"
+        trigger="hover"
+        colors="outline:#121331,primary:#ffc738,secondary:#ebe6ef"
+        style="width:30%;height:250px">
+      </lord-icon>
       <v-col cols="12"
         sm="8"
         md="6"
         lg="4">
         <v-card>
-          <v-card-title class="text-center">Rank</v-card-title>
+          <v-card-title class="text-center">TOP 100 ENCURTADOS</v-card-title>
           <v-card-text>
             <v-list>
               <v-list-item v-for="(item, index) in ranking" :key="item.id">
-                <v-list-item-content>
+                <v-list-item>
                   <v-list-item-title>{{ index + 1 }}. {{ item.name }}</v-list-item-title>
                   <v-list-item-subtitle>{{ item.views }} views</v-list-item-subtitle>
-                </v-list-item-content>
+                </v-list-item>
               </v-list-item>
             </v-list>
           </v-card-text>
@@ -55,7 +67,7 @@
 <style scoped>
 .rank {
   margin-top: 20px;
-  width: 200%;
+  width: 100%;
   animation: flipInX 1s;
 }
 </style>

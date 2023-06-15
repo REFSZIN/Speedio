@@ -12,6 +12,7 @@ const store = createStore({
   state: {
     user: null,
     shortLinks: [],
+    shortRedirect: {},
     ranking: [],
   },
 
@@ -39,7 +40,7 @@ const store = createStore({
         const response = await service.StatusAPI();
         commit('SET_USER', response.data);
       } catch (error) {
-        // Trate o erro de acordo com suas necessidades
+        console.log(error.message);
       }
     },
 
@@ -48,7 +49,7 @@ const store = createStore({
         const response = await service.ListUser();
         commit('SET_SHORT_LINKS', response.data);
       } catch (error) {
-        // Trate o erro de acordo com suas necessidades
+        console.log(error.message);
       }
     },
 
@@ -57,25 +58,25 @@ const store = createStore({
         const response = await service.GetRank();
         commit('SET_RANKING', response.data);
       } catch (error) {
-        // Trate o erro de acordo com suas necessidades
+        console.log(error.message);
       }
     },
 
     async postUser({ commit }, { name, email, password }) {
       try {
         const response = await service.PostUser(name, email, password);
-        commit('SET_RANKING', response.data);
+        commit('SET_USER', response.data);
       } catch (error) {
-        // Trate o erro de acordo com suas necessidades
+        console.log(error.message);
       }
     },
 
     async loginUser({ commit }, { email, password }) {
       try {
         const response = await service.LoginUser(email, password);
-        commit('SET_RANKING', response.data);
+        commit('SET_USER', response.data);
       } catch (error) {
-        // Trate o erro de acordo com suas necessidades
+        console.log(error.message);
       }
     },
 
@@ -84,7 +85,7 @@ const store = createStore({
         const response = await service.PostShortLink(url, userId);
         commit('SET_RANKING', response.data);
       } catch (error) {
-        // Trate o erro de acordo com suas necessidades
+        console.log(error.message);
       }
     },
 
@@ -93,7 +94,7 @@ const store = createStore({
         const response = await service.DelShort(shortId);
         commit('SET_RANKING', response.data);
       } catch (error) {
-        // Trate o erro de acordo com suas necessidades
+        console.log(error.message);
       }
     },
 
@@ -102,7 +103,7 @@ const store = createStore({
         const response = await service.PutShort(shortId, url);
         commit('SET_RANKING', response.data);
       } catch (error) {
-        // Trate o erro de acordo com suas necessidades
+        console.log(error.message);
       }
     },
     
@@ -111,7 +112,7 @@ const store = createStore({
         const response = await service.RedirectUrl(shortUrl);
         commit('SET_RANKING', response.data );
       } catch (error) {
-        // Trate o erro de acordo com suas necessidades
+        console.log(error.message);
       }
     },
     // Adicione outras actions conforme necessário

@@ -5,7 +5,10 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
 import VueTheMask from 'vue-the-mask';
+import lottie from 'lottie-web';
+import { defineElement } from 'lord-icon-element';
 
+defineElement(lottie.loadAnimation);
 loadFonts()
 
 createApp(App)

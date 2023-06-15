@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="container">
-      <p class="msg">© {{ currentYear }} SpeedioUrl. Todos os direitos reservados (～￣▽￣)～.</p>
+      <p class="msg">©{{ currentYear }} SpeedioUrl. Todos os direitos reservados.</p>
     </div>
   </footer>
 </template>
