@@ -13,7 +13,7 @@
       </router-link>
     </v-card-actions>
     <v-spacer />
-    <router-link class="mr-sm-12" to="/checkout"></router-link>
+    <router-link class="mr-sm-12" to="/"></router-link>
   </v-app-bar>
   <v-navigation-drawer
     v-model="drawer"

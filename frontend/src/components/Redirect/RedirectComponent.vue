@@ -1,5 +1,4 @@
-<template>
-  <v-app>
+<template class="conteiner">
     <v-container>
       <v-card class="redirection-content">
         <v-card-title>
@@ -25,7 +24,6 @@
         </v-card-text>
       </v-card>
     </v-container>
-  </v-app>
 </template>
 
 <script>
@@ -76,7 +74,6 @@
             try {
               this.isLoading = true; 
               const response = await service.RedirectUrl(shortUrl);
-              console.log(response.data.productPosted.url);
               const redirectData = response.data.productPosted.url;
               setTimeout(() => {
                 window.location.href = redirectData;
@@ -114,17 +111,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 30%;
+  
 }
 
 .redirection-content {
   display: flex;
-  margin-top: 20px;
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
   align-content: center;
   justify-content: center;
   animation: fadeInDown 1s;
+  margin-top: 160px !important;
+  height: fit-content;
 }
 </style>

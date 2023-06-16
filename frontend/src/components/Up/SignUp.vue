@@ -2,9 +2,9 @@
   <v-container class="signup" fluid>
     <v-row justify="center">
       <v-col cols="12"
-          sm="8"
-          md="6"
-          lg="4">
+sm="8"
+md="6"
+lg="4">
         <lord-icon
           src="https://cdn.lordicon.com/ajkxzzfb.json"
           trigger="hover"
@@ -62,10 +62,10 @@
 
 <script>
   import { defineComponent } from 'vue';
-  import { mapActions } from 'vuex';
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
-
+  import service from '../../plugins/service';
+  import { mapActions, mapMutations } from 'vuex';
   export default defineComponent({
     name: 'SignUp',
     data() {
@@ -83,78 +83,66 @@
       };
     },
     methods: {
-    ...mapActions(['postUser', 'loginUser']),
-    submitForm() {
-      this.nameErrors = [];
-      this.emailErrors = [];
-      this.passwordErrors = [];
-      this.confirmPasswordErrors = [];
-      if (!this.name) {
-        this.nameErrors.push('Name is required');
-      }
-      if (!this.email) {
-        this.emailErrors.push('Email is required');
-      } else if (!this.isValidEmail(this.email)) {
-        this.emailErrors.push('Invalid email');
-      }
-      if (!this.password) {
-        this.passwordErrors.push('Password is required');
-      } else if (this.password.length < 6) {
-        this.passwordErrors.push('Password must be at least 6 characters');
-      }
-      if (!this.confirmPassword) {
-        this.confirmPasswordErrors.push('Confirm Password is required');
-      } else if (this.password !== this.confirmPassword) {
-        this.confirmPasswordErrors.push('Passwords do not match');
-      }
-      if (
-        this.nameErrors.length ||
-        this.emailErrors.length ||
-        this.passwordErrors.length ||
-        this.confirmPasswordErrors.length
-      ) {
-        return;
-      }
+      ...mapActions(['postUser', 'loginUser']),
+      ...mapMutations(['SET_USER']),
+      async submitForm() {
+        this.nameErrors = [];
+        this.emailErrors = [];
+        this.passwordErrors = [];
+        this.confirmPasswordErrors = [];
+        if (!this.name) {
+          this.nameErrors.push('Name is required');
+        }
+        if (!this.email) {
+          this.emailErrors.push('Email is required');
+        } else if (!this.isValidEmail(this.email)) {
+          this.emailErrors.push('Invalid email');
+        }
+        if (!this.password) {
+          this.passwordErrors.push('Password is required');
+        } else if (this.password.length < 6) {
+          this.passwordErrors.push('Password must be at least 6 characters');
+        }
+        if (!this.confirmPassword) {
+          this.confirmPasswordErrors.push('Confirm Password is required');
+        } else if (this.password !== this.confirmPassword) {
+          this.confirmPasswordErrors.push('Passwords do not match');
+        }
+        if (
+          this.nameErrors.length ||
+          this.emailErrors.length ||
+          this.passwordErrors.length ||
+          this.confirmPasswordErrors.length
+        ) {
+          return;
+        }
 
-      this.postUser({
-        name: this.name,
-        email: this.email,
-        password: this.password,
-      })
-        .then(() => {
+        try {
+          await service.PostUser(this.name, this.email, this.password);
           toast('Cadastro com sucesso!!', {
             autoClose: 2000,
           });
-          this.loginUser({
-            email: this.email,
-            password: this.password,
-          })
-            .then(() => {
-              this.$router.push('/');
-            })
-            .catch(() => {
-              toast('Falha ao fazer login', {
-                autoClose: 2000,
-              });
-            });
-        })
-        .catch(() => {
+
+          const response = await service.LoginUser(this.email, this.password);
+          this.SET_USER(response.data);
+          this.$router.push('/');
+        } catch (error) {
           toast('Não foi possível cadastrar', {
             autoClose: 2000,
           });
-        });
-    },
-    isValidEmail(email) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailRegex.test(email);
-    },
+        }
+      },
+      isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      },
     },
   });
 </script>
 
 <style scoped>
 .signup {
-  margin-top: 20px;
+  margin-top: -20px;
   display: flex;
   align-content: center;
   justify-content: center;

@@ -1,4 +1,6 @@
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
+import faker from "@faker-js/faker";
 
 const prisma = new PrismaClient();
 
@@ -9,12 +11,12 @@ async function main() {
       data: [
         {
           userId: 1,
-          shortUrl: "Uakgb_J5m9g-0JDMbcJqC",
+          shortUrl: "Uakgb_Jc",
           url: "https://www.linkedin.com/in/yanassis/"
         },
         {
           userId: 1,
-          shortUrl: "Uakgb_J5m9g-0JDMbcJqL",
+          shortUrl: "Uakgb_J5",
           url: "https://www.linkedin.com/in/yanassis/",
           views: 10,
         }
@@ -23,12 +25,13 @@ async function main() {
   }
   const users = await prisma.user.findMany();
   if (users.length === 0) {
+    const hashedPassword = await bcrypt.hash(faker.internet.password(6), 10);
     await prisma.user.create({
       data: 
         {
           name: "Administrator",
           email: "test@example.com",
-          password: "admin"
+          password: hashedPassword
         }
     });
   }

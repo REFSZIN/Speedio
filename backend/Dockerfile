@@ -1,5 +1,5 @@
 
-FROM node:16
+FROM node:18.14.0
 
 WORKDIR /usr/src
 

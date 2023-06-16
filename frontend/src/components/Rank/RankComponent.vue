@@ -56,35 +56,46 @@
   export default defineComponent({
     name: 'RankComponent',
     computed: {
-    ...mapGetters(['getRanking']),
+    ...mapGetters(['getUser', 'getRanking']),
     ranking() {
-        if (this.getUser !== null) {
-          return this.getRanking;
-        } else {
-          return [];
-        }
-      },
+      if (this.getUser !== null) {
+        return this.getRanking;
+      } else {
+        const ranking = this.getRanking;
+        return {
+          ranking: ranking.ranking,
+        };
+      }
+    },
     },
     methods: {
-      ...mapActions(['fetchRanking']),
-      getShortUrl(shortUrl) {
-        return `http://localhost:8080/cut/${shortUrl}`;
-      },
+    ...mapActions(['fetchRanking']),
+    getShortUrl(shortUrl) {
+      return `http://localhost:8080/cut/${shortUrl}`;
+    },
+    cleanLocalStorage() {
+      if (this.getUser === null) {
+        localStorage.removeItem('vuex');
+      }
+    },
     },
     created() {
       this.fetchRanking();
+    },
+    beforeUnmount() {
+      this.cleanLocalStorage();
     },
   });
 </script>
 
 <style scoped>
-  .rank {
-    margin-top: 20px;
-    width: 100%;
-    height: 120vh;
-    animation: fadeInUp 2s;
-  }
-  .m{
-    margin-bottom: 120px !important;
-  }
+.rank {
+  margin-top: 20px;
+  width: 100%;
+  height: 120vh;
+  animation: fadeInUp 2s;
+}
+.m {
+  margin-bottom: 120px !important;
+}
 </style>

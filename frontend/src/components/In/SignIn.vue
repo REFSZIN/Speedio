@@ -43,11 +43,14 @@
 
 <script>
   import { defineComponent } from 'vue';
-  import { mapActions } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
 
   export default defineComponent({
+    computed: {
+    ...mapGetters(['getUser']),
+    },
     name: 'SignIn',
     data() {
       return {
@@ -58,50 +61,69 @@
       };
     },
     methods: {
-      ...mapActions(['loginUser']),
-      submitForm() {
-        this.emailErrors = [];
-        this.passwordErrors = [];
-        if (!this.email) {
-          this.emailErrors.push('Email is required');
-        }
-        if (!this.password) {
-          this.passwordErrors.push('Password is required');
-        }
-        if (this.emailErrors.length || this.passwordErrors.length) {
-          return;
-        }
+    ...mapActions(['loginUser']),
+    submitForm() {
+      this.emailErrors = [];
+      this.passwordErrors = [];
+      if (!this.email) {
+        this.emailErrors.push('Email is required');
+      }
+      if (!this.password) {
+        this.passwordErrors.push('Password is required');
+      }
+      if (this.emailErrors.length || this.passwordErrors.length) {
+        return;
+      }
 
-        this.loginUser({
-          email: this.email,
-          password: this.password,
-        })
-          .then(() => {
+      this.loginUser({
+        email: this.email,
+        password: this.password,
+      })
+        .then(() => {
+          if (this.getUser) {
             toast.success('Login com sucesso!', {
               autoClose: 2000,
             });
             this.$router.push('/');
-          })
-          .catch(() => {
-            toast.error('Erro ao Logar. Por favor, tente novamente.', {
-          position: 'top-right',
-          timeout: 3000,
-          closeOnClick: true,
-          pauseOnFocusLoss: true,
+          } else {
+            toast.error('Erro ao fazer login. Por favor, tente novamente.', {
+              position: 'top-right',
+              timeout: 3000,
+              closeOnClick: true,
+              pauseOnFocusLoss: true,
+            });
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          if (error.response && error.response.status === 401) {
+            toast.error('Credenciais inválidas. Por favor, verifique seu email e senha.', {
+              position: 'top-right',
+              timeout: 3000,
+              closeOnClick: true,
+              pauseOnFocusLoss: true,
+            });
+          } else {
+            toast.error('Erro ao fazer login. Por favor, tente novamente.', {
+              position: 'top-right',
+              timeout: 3000,
+              closeOnClick: true,
+              pauseOnFocusLoss: true,
+            });
+          }
         });
-          });
-      },
+    },
     },
   });
 </script>
 
 <style scoped>
-  .signin {
-    margin-top: 20px;
-    animation: fadeInUp 1s;
-  }
+.signin {
+  margin-top: 20px;
+  animation: fadeInUp 1s;
+}
 
-  .login-link {
+.login-link {
   font-size: 14px;
   color: #757575;
   display: block;

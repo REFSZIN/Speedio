@@ -41,6 +41,15 @@ const store = createStore({
     SET_RANKING(state, ranking) {
       state.ranking = ranking;
     },
+    SET_USER_NULL(state) { 
+      state.user = null;
+    },
+    SET_SHORT_LINKS_NULL(state) {
+      state.shortLinks = [];
+    },
+    SET_RANKING_NULL(state) { 
+      state.ranking = [];
+    },
   },
 
   actions: {
@@ -59,7 +68,7 @@ const store = createStore({
         const response = await service.ListUser();
         commit('SET_SHORT_LINKS', response.data.myshortens);
       } catch (error) {
-        console.log(error.message);
+        console.log('Oi :)');
       }
     },
 
@@ -71,14 +80,15 @@ const store = createStore({
         console.log(error.message);
       }
     },
-    async postUser( name, email, password ) {
+
+    async postUser({name, email, password}) {
       try {
-        const response = await service.PostUser(name, email, password);
-        localStorage.setItem('vuex', JSON.stringify(response.data)); 
+        await service.PostUser(name, email, password);
       } catch (error) {
         console.log(error.message);
       }
     },
+
     async loginUser({ commit }, { email, password }) {
       try {
         const response = await service.LoginUser(email, password);
@@ -99,7 +109,6 @@ const store = createStore({
     },
 
     async deleteShortLink(shortId) {
-      console.log('vuex', { shortId });
       try {
         await service.DelShort({shortId});
       } catch (error) {
@@ -108,7 +117,6 @@ const store = createStore({
     },
 
     async updateShortLink({ shortId, url }) {
-      console.log('vuex', shortId, url);
       try {
         await service.PutShort(shortId, url);
       } catch (error) {
@@ -127,7 +135,9 @@ const store = createStore({
     },
     logout({ commit }) {
       try {
-        commit('SET_USER', null);
+        commit('SET_USER_NULL');
+        commit('SET_SHORT_LINKS_NULL'); 
+        commit('SET_RANKING_NULL');
         localStorage.removeItem('vuex');
       } catch (error) {
         console.log(error.message);

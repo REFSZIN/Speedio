@@ -9,7 +9,10 @@ services:
       - backend/.env
     volumes:
       - postgres-volume:/var/lib/postgresql/data
-
+    stdin_open: true
+    privileged: true
+    tty: true
+    
   node:
     container_name: node
     build: ./backend
@@ -19,6 +22,9 @@ services:
       - postgres
     env_file:
       - backend/.env
+    stdin_open: true
+    privileged: true
+    tty: true
 
   vue:
     container_name: vue
@@ -30,6 +36,7 @@ services:
     stdin_open: true
     privileged: true
     tty: true
+
   nginx:
     container_name: nginx
     build: ./nginx

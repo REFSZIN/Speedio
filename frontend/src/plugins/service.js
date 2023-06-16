@@ -4,7 +4,7 @@ const service = {
   StatusAPI() {
     return axios.get('/');
   },
-  PostUser({name, email, password}) {
+  PostUser(name, email, password) {
     return axios.post('/users/', { name, email, password });
   },
   LoginUser(email, password) {
