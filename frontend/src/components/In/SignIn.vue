@@ -62,16 +62,12 @@
       submitForm() {
         this.emailErrors = [];
         this.passwordErrors = [];
-
-        // Verificar se os campos estão preenchidos corretamente
         if (!this.email) {
           this.emailErrors.push('Email is required');
         }
         if (!this.password) {
           this.passwordErrors.push('Password is required');
         }
-
-        // Verificar se há erros nos campos
         if (this.emailErrors.length || this.passwordErrors.length) {
           return;
         }
@@ -84,9 +80,6 @@
             toast.success('Login com sucesso!', {
               autoClose: 2000,
             });
-            // Redirecionar o usuário para a página desejada após o login
-
-            // Exemplo de redirecionamento para a página inicial:
             this.$router.push('/');
           })
           .catch(() => {

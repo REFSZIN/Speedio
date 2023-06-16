@@ -4,13 +4,20 @@
       <v-card class="redirection-content">
         <v-card-title>
           <h1>Redirecionador</h1>
-          <v-img src="@/assets/images/rocket.png" alt="Rocket" class="rocket"/>
+          <v-img src="@/assets/images/rocket.png" alt="Rocket" class="rocket" />
         </v-card-title>
         <v-card-text v-if="!paramsExist">
           <p>Código não foi passado via URL.</p>
           <p>Por favor, entre com o Código manualmente:</p>
           <v-text-field v-model="manualParams" label="Código de Redirecionamento"></v-text-field>
-          <v-btn @click="redirect" color="blue">Redirecionar</v-btn>
+          <v-btn @click="redirect" color="blue" :disabled="isLoading">
+            <template v-if="isLoading">
+              <v-progress-circular indeterminate color="white"></v-progress-circular>
+            </template>
+            <template v-else>
+              Redirecionar
+            </template>
+          </v-btn>
         </v-card-text>
         <v-card-text v-else>
           <p>Redirecionando para: {{ params.url }}</p>
@@ -26,6 +33,8 @@
   import { mapActions } from 'vuex';
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
+  import axios from '../../plugins/axios';
+  import service from '../../plugins/service';
 
   export default defineComponent({
     name: 'RedirectComponent',
@@ -34,35 +43,55 @@
         params: null,
         manualParams: '',
         paramsExist: false,
+        isLoading: false,
       };
+    },
+    created() {
+      if (this.$route.params?.shortUrl) {
+        this.paramsExist = true;
+        this.params = {
+          url: '',
+        };
+        axios.get(`/short/${this.$route.params.shortUrl}`)
+          .then(response => {
+            this.isLoading = true; 
+            this.params.url = response.data.productPosted.url;
+            setTimeout(() => {
+              window.location.href = this.params.url;
+            }, 3000);
+          })
+          .catch(error => {
+            this.showErrorToast('Error obtaining URL');
+            console.error(error);
+          });
+      }
     },
     methods: {
       ...mapActions(['redirectUrl']),
-
       async redirect() {
         const shortUrl = this.manualParams.trim();
         if (shortUrl) {
           if (shortUrl.length === 8) {
+            this.isLoading = true; 
             try {
-              await this.redirectUrl(shortUrl);
-              const redirectData = this.$store.getters.getRanking;
-              if (redirectData && redirectData.url) {
-                window.location.href = redirectData.url;
-              } else {
-                this.showErrorToast('URL não encontrada');
-              }
+              this.isLoading = true; 
+              const response = await service.RedirectUrl(shortUrl);
+              console.log(response.data.productPosted.url);
+              const redirectData = response.data.productPosted.url;
+              setTimeout(() => {
+                window.location.href = redirectData;
+              }, 3000);
             } catch (error) {
-              this.showErrorToast('Erro ao redirecionar');
+              this.showErrorToast('Error redirecting');
               console.error(error);
-            }
+            } 
           } else {
-            this.showErrorToast('O código de redirecionamento deve ter no mínimo 8 caracteres');
+            this.showErrorToast('The redirection code must be at least 8 characters long');
           }
         } else {
-          this.showErrorToast('O código de redirecionamento é obrigatório');
+          this.showErrorToast('The redirection code is required');
         }
       },
-
       showErrorToast(message) {
         toast.error(message, {
           position: 'top-right',
@@ -76,10 +105,10 @@
 </script>
 
 <style scoped>
-
-.rocket{
+.rocket {
   height: 90px;
 }
+
 .container {
   display: flex;
   flex-direction: column;

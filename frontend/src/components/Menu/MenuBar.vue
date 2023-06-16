@@ -43,6 +43,7 @@
         <v-icon>{{ item.icone }}</v-icon>
         <v-list-item-title>{{ item.titulo }}</v-list-item-title>
       </v-list-item>
+      <v-btn v-if="this.getUser" text @click="logout"> <v-icon> mdi-logout</v-icon> Sair</v-btn>
     </v-list>
     <v-list class="">
       <v-list-item-title>Faça a sua conta na Speedio</v-list-item-title>
@@ -53,14 +54,14 @@
 
 <script>
   import './MenuBar.less';
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
 
   export default {
     computed: {
     ...mapGetters(['getUser']),
     filteredMenuItens() {
       if (this.getUser) {
-        return this.menuItens.filter((item) => item.titulo !== 'Login' && item.titulo !== 'Registrar');
+        return this.menuItens.filter((item) => item.titulo !== 'Login' && item.titulo !== 'Cadastro');
       }
       return this.menuItens.filter((item) => item.titulo !== 'Sair');
     },
@@ -73,12 +74,12 @@
         { titulo: 'Encurtador', rota: '/', icone: 'mdi-content-cut' },
         { titulo: 'Ranking', rota: '/rank', icone: 'mdi-poll' },
         { titulo: 'SpeedioCut', rota: '/cut', icone: 'mdi-open-in-new' },
-        { titulo: 'Sair', rota: '/', icone: 'mdi-logout' },
       ],
     }),
     methods: {
+      ...mapActions(['logout']),
       logout() {
-        localStorage.clear();
+        this.$store.dispatch('logout');
         this.$router.push({ name: 'Signin' });
       },
     },

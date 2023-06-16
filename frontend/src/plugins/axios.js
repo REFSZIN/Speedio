@@ -1,14 +1,15 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://127.0.0.1:5000',
+  baseURL: 'http://localhost:5000',
 });
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const user = localStorage.getItem('user');
-    if (user) {
-      config.headers.Authorization = `Bearer ${JSON.parse(user).token}`;
+    const vuexData = localStorage.getItem('vuex');
+    if (vuexData) {
+      const token = JSON.parse(vuexData).user.token;
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },

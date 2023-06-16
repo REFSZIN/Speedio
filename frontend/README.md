@@ -19,6 +19,13 @@
 
 Front-End application Vue.js 3 + Less + Eslint + Prettier +  Vuetify + Vue Router + Docker + Nginx + GitActions </br>
 
+
+VIDEO APRESENTANDO DESAFIO VOU POSTAR DIA 16/06 14:00Hrs: https://www.youtube.com/channel/UCrKjJHCGJAYoD5zf4TKP0ng
+
+
+Sobre o projeto tive alguns problemas no front com o user salvo no vuex quando não esta logado e navega pelo ranking e no cadastro.
+backend acredito estar bem escrito e funcionando bem :)
+
 </br>
 
 
@@ -45,6 +52,17 @@ Install dependencies
 ### Compiles and hot-reloads for development
 ```bash
   npm run serve
+```
+
+### BACKEND RUNS
+```bash
+1. Executar o script: `ENV:migration:run`
+    1. ex.: `dev:migration:run`
+2. Executar o script: `ENV:migration:generate`
+    1. ex.: `dev:migration:generate`
+- ✅ Como executar os testes? (opcional)
+    1. Completar os itens anteriores
+    2. Executar o script: `test:watch`
 ```
 
 ### Compiles and minifies for production

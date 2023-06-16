@@ -4,14 +4,18 @@ const service = {
   StatusAPI() {
     return axios.get('/');
   },
-  PostUser(name, email, password) {
+  PostUser({name, email, password}) {
     return axios.post('/users/', { name, email, password });
   },
   LoginUser(email, password) {
     return axios.post('/auth/sign-in', { email, password });
   },
-  PostShortLink(url, userId) {
-    return axios.post('/short/', { url, userId });
+  async PostShortLink({ url, userId }) {
+    if (userId) {
+      return axios.post('/short/', { url, userId });
+    } else {
+      return axios.post('/short/', { url });
+    }
   },
   GetRank() {
     return axios.get('/short/rank');
@@ -20,9 +24,9 @@ const service = {
     return axios.get('/short/me/list');
   },
   DelShort(shortId) {
-    return axios.delete(`/short/${shortId}`);
+    return axios.delete(`/short/`, { data: { shortId } });
   },
-  PutShort(shortId, url) {
+  PutShort(url ,shortId ) {
     return axios.put(`/short/`, { url, shortId });
   },
   RedirectUrl(shortUrl) {

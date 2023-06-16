@@ -1,16 +1,16 @@
 <template>
   <v-container class="signup" fluid>
     <v-row justify="center">
-      <v-col cols="12" 
-      sm="8"
-      md="6" 
-      lg="4">
-      <lord-icon
-        src="https://cdn.lordicon.com/ajkxzzfb.json"
-        trigger="hover"
-        colors="primary:#ffc738,secondary:#4bb3fd"
-        style="width:100%;height:250px">
-      </lord-icon>
+      <v-col cols="12"
+          sm="8"
+          md="6"
+          lg="4">
+        <lord-icon
+          src="https://cdn.lordicon.com/ajkxzzfb.json"
+          trigger="hover"
+          colors="primary:#ffc738,secondary:#4bb3fd"
+          style="width:100%;height:250px"
+        ></lord-icon>
         <v-card>
           <v-card-title class="text-center">Cadastre-se</v-card-title>
           <v-card-text>
@@ -83,75 +83,87 @@
       };
     },
     methods: {
-      ...mapActions(['postUser']),
-      submitForm() {
-        this.nameErrors = [];
-        this.emailErrors = [];
-        this.passwordErrors = [];
-        this.confirmPasswordErrors = [];
-        if (!this.name) {
-          this.nameErrors.push('Name is required');
-        }
-        if (!this.email) {
-          this.emailErrors.push('Email is required');
-        } else if (!this.isValidEmail(this.email)) {
-          this.emailErrors.push('Invalid email');
-        }
-        if (!this.password) {
-          this.passwordErrors.push('Password is required');
-        } else if (this.password.length < 6) {
-          this.passwordErrors.push('Password must be at least 6 characters');
-        }
-        if (!this.confirmPassword) {
-          this.confirmPasswordErrors.push('Confirm Password is required');
-        } else if (this.password !== this.confirmPassword) {
-          this.confirmPasswordErrors.push('Passwords do not match');
-        }
-        if (
-          this.nameErrors.length ||
-          this.emailErrors.length ||
-          this.passwordErrors.length ||
-          this.confirmPasswordErrors.length
-        ) {
-          return;
-        }
+    ...mapActions(['postUser', 'loginUser']),
+    submitForm() {
+      this.nameErrors = [];
+      this.emailErrors = [];
+      this.passwordErrors = [];
+      this.confirmPasswordErrors = [];
+      if (!this.name) {
+        this.nameErrors.push('Name is required');
+      }
+      if (!this.email) {
+        this.emailErrors.push('Email is required');
+      } else if (!this.isValidEmail(this.email)) {
+        this.emailErrors.push('Invalid email');
+      }
+      if (!this.password) {
+        this.passwordErrors.push('Password is required');
+      } else if (this.password.length < 6) {
+        this.passwordErrors.push('Password must be at least 6 characters');
+      }
+      if (!this.confirmPassword) {
+        this.confirmPasswordErrors.push('Confirm Password is required');
+      } else if (this.password !== this.confirmPassword) {
+        this.confirmPasswordErrors.push('Passwords do not match');
+      }
+      if (
+        this.nameErrors.length ||
+        this.emailErrors.length ||
+        this.passwordErrors.length ||
+        this.confirmPasswordErrors.length
+      ) {
+        return;
+      }
 
-        this.postUser({
-          name: this.name,
-          email: this.email,
-          password: this.password,
-        })
-          .then(() => {
-            toast('Cadastro com sucesso!!', {
-              autoClose: 2000,
-            });
-            this.$router.push('/');
-          })
-          .catch(() => {
-            toast('Não foi possivel Cadastrar', {
-              autoClose: 2000,
-            });
+      this.postUser({
+        name: this.name,
+        email: this.email,
+        password: this.password,
+      })
+        .then(() => {
+          toast('Cadastro com sucesso!!', {
+            autoClose: 2000,
           });
-      },
-      isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-      },
+          this.loginUser({
+            email: this.email,
+            password: this.password,
+          })
+            .then(() => {
+              this.$router.push('/');
+            })
+            .catch(() => {
+              toast('Falha ao fazer login', {
+                autoClose: 2000,
+              });
+            });
+        })
+        .catch(() => {
+          toast('Não foi possível cadastrar', {
+            autoClose: 2000,
+          });
+        });
+    },
+    isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    },
     },
   });
 </script>
 
 <style scoped>
-  .signup {
-    margin-top: 20px;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
-    animation: fadeInUp 1s;
-  }
-  .login-link {
+.signup {
+  margin-top: 20px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  animation: fadeInUp 1s;
+}
+
+.login-link {
   font-size: 14px;
   color: #757575;
   display: block;

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="rank" fluid>
+  <v-container fluid>
     <v-row justify="center">
       <lord-icon
         src="https://cdn.lordicon.com/snnvmbic.json"
@@ -23,15 +23,20 @@
         sm="8"
         md="6"
         lg="4">
-        <v-card>
+        <v-card class="m">
           <v-card-title class="text-center">TOP 100 ENCURTADOS</v-card-title>
           <v-card-text>
             <v-list>
-              <v-list-item v-for="(item, index) in ranking" :key="item.id">
+              <v-list-item v-for="(item, index) in ranking.ranking" :key="item.id">
                 <v-list-item>
-                  <v-list-item-title>{{ index + 1 }}. {{ item.name }}</v-list-item-title>
+                  <v-list-item-title>POSIÇÃO {{ index + 1 }}°</v-list-item-title>
+                  <v-list-item-subtitle>URL ENCURTADA:
+                    <a :href="getShortUrl(item.shortUrl)" target="_blank">{{ item.shortUrl }}</a>
+                  </v-list-item-subtitle>
+                  <v-list-item-title>URL: {{ item.url }}</v-list-item-title>
                   <v-list-item-subtitle>{{ item.views }} views</v-list-item-subtitle>
                 </v-list-item>
+                <hr>
               </v-list-item>
             </v-list>
           </v-card-text>
@@ -47,16 +52,24 @@
   import { defineComponent } from 'vue';
   import { mapGetters, mapActions } from 'vuex';
   defineElement(lottie.loadAnimation);
+
   export default defineComponent({
     name: 'RankComponent',
     computed: {
     ...mapGetters(['getRanking']),
     ranking() {
-      return this.getRanking;
-    },
+        if (this.getUser !== null) {
+          return this.getRanking;
+        } else {
+          return [];
+        }
+      },
     },
     methods: {
-    ...mapActions(['fetchRanking']),
+      ...mapActions(['fetchRanking']),
+      getShortUrl(shortUrl) {
+        return `http://localhost:8080/cut/${shortUrl}`;
+      },
     },
     created() {
       this.fetchRanking();
@@ -65,9 +78,13 @@
 </script>
 
 <style scoped>
-.rank {
-  margin-top: 20px;
-  width: 100%;
-  animation: flipInX 1s;
-}
+  .rank {
+    margin-top: 20px;
+    width: 100%;
+    height: 120vh;
+    animation: fadeInUp 2s;
+  }
+  .m{
+    margin-bottom: 120px !important;
+  }
 </style>

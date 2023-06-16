@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
   {
@@ -7,7 +7,7 @@ const routes = [
     components: {
       default: () => import('../views/Home/HomePage.vue')
     },
-    props: true,
+    props: true
   },
   {
     name: 'RankPage',
@@ -15,7 +15,7 @@ const routes = [
     components: {
       default: () => import('../views/Top/TopPage.vue')
     },
-    props: true,
+    props: true
   },
   {
     name: 'Signup',
@@ -23,7 +23,7 @@ const routes = [
     components: {
       default: () => import('../views/SignUp/SignUpPage.vue')
     },
-    props: true,
+    props: true
   },
   {
     name: 'Signin',
@@ -31,26 +31,22 @@ const routes = [
     components: {
       default: () => import('../views/SignIn/SignInPage.vue')
     },
-    props: true,
+    props: true
   },
   {
     name: 'Redirection',
-    path: '/cut',
+    path: '/cut/:shortUrl?',
     components: {
       default: () => import('../views/Redirection/RedirectionPage.vue')
     },
     props: true,
   },
-  {
-    path: '/:catchAll(.*)',
-    redirect: '/'
-  }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(),
   base: process.env.BASE_URL,
   routes
-})
+});
 
-export default router
+export default router;
