@@ -29,8 +29,9 @@ Desafio Técnico - Serviço de Encurtamento de URLs
 Full Stack application<br>
 NodeJs + Typescript para API, Jest para testes de int e unit, Prisma ORM para PostgreSQL <br>
 Vue.js 3 + Less + Eslint + Prettier + Vuetify + Vue Router + Docker + Nginx + GitActions. </br>
-Apresentação:  https://www.youtube.com/
+VIDEO APRESENTANDO DESAFIO VOU POSTAR DIA 16/06 14:00Hrs: https://www.youtube.com/channel/UCrKjJHCGJAYoD5zf4TKP0ng
 
+Sobre o projeto tive alguns problemas no front com o user salvo no vuex quando não esta logado e navega pelo ranking e no cadastro. backend acredito estar bem escrito e funcionando bem :)
 </br>
 
 
