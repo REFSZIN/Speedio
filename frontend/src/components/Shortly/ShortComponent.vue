@@ -30,7 +30,7 @@
               <v-btn type="submit" color="blue" block>Encurtar</v-btn>
             </v-form>
             <template v-if="shortUrl">
-              <a class="placeholder-url" :href="`http://localhost:8080/cut/${placeholderShortUrl}`">Link Gerado: http://localhost:8080/short/{{ placeholderShortUrl }}</a>
+              <a class="placeholder-url" :href="`https://speedio.vercel.app/cut/${placeholderShortUrl}`">Link Gerado: https://speedio.vercel.app/short/{{ placeholderShortUrl }}</a>
               <div justify="center w-12">
               <v-icon class="copy-icon" @click="copyToClipboard(placeholderShortUrl)">mdi-content-copy</v-icon>
               </div>
@@ -111,7 +111,7 @@
         });
       },
       copyToClipboard(shortUrl) {
-        navigator.clipboard.writeText(`http://localhost:8080/cut/${shortUrl}`);
+        navigator.clipboard.writeText(`https://speedio.vercel.app/cut/${shortUrl}`);
         this.showSuccessToast('Link copiado para a área de transferência!');
       },
     },

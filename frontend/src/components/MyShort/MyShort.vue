@@ -112,10 +112,10 @@
         });
       },
       getShortUrl(shortUrl) {
-        return `http://localhost:8080/cut/${shortUrl}`;
+        return `https://speedio.vercel.app/cut/${shortUrl}`;
       },
       copyToClipboard(shortUrl) {
-        navigator.clipboard.writeText(`http://localhost:8080/cut/${shortUrl}`);
+        navigator.clipboard.writeText(`https://speedio.vercel.app/cut/${shortUrl}`);
         this.showSuccessToast('Link copiado para a área de transferência!');
       },
     },

@@ -71,7 +71,7 @@
     methods: {
     ...mapActions(['fetchRanking']),
     getShortUrl(shortUrl) {
-      return `http://localhost:8080/cut/${shortUrl}`;
+      return `https://speedio.vercel.app/cut/${shortUrl}`;
     },
     cleanLocalStorage() {
       if (this.getUser === null) {
