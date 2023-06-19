@@ -10,12 +10,11 @@ async function main() {
     await prisma.shortens.createMany({
       data: [
         {
-          userId: 1,
           shortUrl: "Uakgb_Jc",
-          url: "https://www.linkedin.com/in/yanassis/"
+          url: "https://www.linkedin.com/in/yanassis/",
+          views: 23,
         },
         {
-          userId: 1,
           shortUrl: "Uakgb_J5",
           url: "https://www.linkedin.com/in/yanassis/",
           views: 10,

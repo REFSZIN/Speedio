@@ -2,8 +2,8 @@ import axios from 'axios';
 import store from '@/store';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000',
-  // Produção -->  baseURL: 'http://localhost/api',
+  baseURL: 'https://speedionode.onrender.com',
+  // Produção -->  baseURL: 'https://speedionode.onrender.com',
 });
 
 axiosInstance.interceptors.request.use(
